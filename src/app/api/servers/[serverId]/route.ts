@@ -1,5 +1,5 @@
-import { currentProfile } from '@/shared/api-helpers';
-import { db } from '@/shared/api-helpers/db';
+import { currentProfile } from '@/shared/api';
+import { db } from '@/shared/api/db';
 import { NextResponse } from 'next/server';
 import { UTApi } from 'uploadthing/server';
 

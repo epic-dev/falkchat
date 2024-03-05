@@ -1,9 +1,11 @@
-import { MessageInput } from '@/features/message';
-import { createOrFindConversation, currentProfile, db } from '@/shared/api-helpers';
+import { MessageInput } from '@/features/update-message';
+import { createOrFindConversation } from '@/entities/server';
 import { ChatHeader, ChatMessages } from '@/widgets/chat';
-import { MediaRoom } from '@/widgets/media';
+import { MediaRoom } from '@/widgets/media-room';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
+import { getCurrentMember } from '@/entities/member';
+import { currentProfile } from '@/entities/profile';
 
 interface MemberIdPageProps {
     params: {
@@ -21,15 +23,9 @@ export const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) 
     if (!profile) {
         return redirectToSignIn();
     }
-
-    const currentMember = await db.member.findFirst({
-        where: {
-            serverId: params.serverId,
-            profileId: profile.id,
-        },
-        include: {
-            profile: true,
-        },
+    const currentMember = await getCurrentMember({
+        serverId: params.serverId,
+        profileId: profile.id,
     });
 
     if (!currentMember) {

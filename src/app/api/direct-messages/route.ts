@@ -1,4 +1,4 @@
-import { currentProfile, db } from '@/shared/api-helpers';
+import { currentProfile, db } from '@/shared/api';
 import { DirectMessage } from '@prisma/client';
 import { NextResponse } from 'next/server';
 

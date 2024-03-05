@@ -1,4 +1,4 @@
-import { currentProfile } from '@/shared/api-helpers';
+import { currentProfile } from '@/shared/api';
 import { NextResponse } from 'next/server';
 import { UTApi } from 'uploadthing/server';
 

@@ -1,8 +1,7 @@
 'use client';
 
-import { MessageWithMemberWithProfile } from '@/shared/types';
-import { useChatQuery, useChatSocket } from '@/shared/use-chat-connection';
-import { Member } from '@prisma/client';
+import { useChatQuery, useChatSocket } from '@/entities/chat';
+import { Member, Message, Profile } from '@prisma/client';
 import { format } from 'date-fns';
 import { Hash, Loader2, ServerCrash } from 'lucide-react';
 import { ElementRef, Fragment, useRef } from 'react';
@@ -22,6 +21,12 @@ interface props {
 }
 
 const DATE_FORMAT = 'd MMM yyyy, HH:mm';
+
+type MessageWithMemberWithProfile = Message & {
+    member: Member & {
+        profile: Profile;
+    };
+};
 
 export const ChatMessages = ({
     name,
@@ -54,7 +59,7 @@ export const ChatMessages = ({
         chatRef,
         bottomRef,
         loadMore: fetchNextPage,
-        shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
+        shouldLoadMore: !isFetchingNextPage && hasNextPage,
         count: data?.pages?.[0]?.items?.length ?? 0,
     });
 

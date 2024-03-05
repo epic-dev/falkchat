@@ -1,6 +1,6 @@
 import { Button } from '@/shared/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/shared/ui/sheet';
-import { NavigationSidebar } from '@/widgets/navigation/ui/navigation-sidebar';
+import { Sidebar } from '@/widgets/navigation/ui/sidebar';
 import { ServerSidebar } from '@/widgets/server/ui/server-sidebar';
 import { Menu } from 'lucide-react';
 
@@ -18,7 +18,7 @@ export const BurgerMenu = ({ serverId }: props) => {
             </SheetTrigger>
             <SheetContent side="left" className="p-0 flex gap-0">
                 <div className="w-[72px]">
-                    <NavigationSidebar />
+                    <Sidebar />
                 </div>
                 <ServerSidebar serverId={serverId} />
             </SheetContent>

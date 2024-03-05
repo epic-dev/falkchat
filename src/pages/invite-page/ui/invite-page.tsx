@@ -1,6 +1,8 @@
-import { currentProfile, db } from '@/shared/api-helpers';
+import { currentProfile } from '@/entities/profile';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
+import { checkUserAlreadyInServer } from '@/entities/member';
+import { addUser } from '@/entities/server';
 
 interface props {
     params: {
@@ -20,35 +22,16 @@ export const InvitePage = async ({ params }: props) => {
         return redirect('/');
     }
 
-    const existingServer = await db.server.findFirst({
-        where: {
-            inviteCode: params.inviteCode,
-            members: {
-                some: {
-                    profileId: profile.id,
-                },
-            },
-        },
+    const userAlreadyInServer = await checkUserAlreadyInServer({
+        inviteCode: params.inviteCode,
+        profileId: profile.id,
     });
 
-    if (existingServer) {
-        return redirect(`/servers/${existingServer.id}`);
+    if (userAlreadyInServer) {
+        return redirect(`/servers/${userAlreadyInServer.id}`);
     }
 
-    const server = await db.server.update({
-        where: {
-            inviteCode: params.inviteCode,
-        },
-        data: {
-            members: {
-                create: [
-                    {
-                        profileId: profile.id,
-                    },
-                ],
-            },
-        },
-    });
+    const server = await addUser({ inviteCode: params.inviteCode, profileId: profile.id });
 
     if (server) {
         return redirect(`/servers/${server.id}`);

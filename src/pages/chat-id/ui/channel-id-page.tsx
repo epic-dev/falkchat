@@ -1,10 +1,12 @@
-import { MessageInput } from '@/features/message';
-import { currentProfile, db } from '@/shared/api-helpers';
+import { MessageInput } from '@/features/update-message';
+import { currentProfile } from '@/entities/profile';
 import { ChatHeader, ChatMessages } from '@/widgets/chat';
-import { MediaRoom } from '@/widgets/media';
+import { MediaRoom } from '@/widgets/media-room';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { ChannelType } from '@prisma/client';
 import { redirect } from 'next/navigation';
+import { getCurrentMember } from '@/entities/member';
+import { getChannel } from '@/entities/channel';
 
 interface props {
     params: {
@@ -20,20 +22,14 @@ export const ChannelIdPage = async ({ params }: props) => {
         return redirectToSignIn();
     }
 
-    const channel = await db.channel.findUnique({
-        where: {
-            id: params.channelId,
-        },
+    const channel = await getChannel({ channelId: params.channelId });
+
+    const currentMember = await getCurrentMember({
+        serverId: params.serverId,
+        profileId: profile.id,
     });
 
-    const member = await db.member.findFirst({
-        where: {
-            serverId: params.serverId,
-            profileId: profile.id,
-        },
-    });
-
-    if (!channel || !member) {
+    if (!channel || !currentMember) {
         redirect('/');
     }
 
@@ -43,7 +39,7 @@ export const ChannelIdPage = async ({ params }: props) => {
             {channel.type === ChannelType.TEXT && (
                 <>
                     <ChatMessages
-                        member={member}
+                        member={currentMember}
                         name={channel.name}
                         chatId={channel.id}
                         type="channel"

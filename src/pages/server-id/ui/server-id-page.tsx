@@ -1,6 +1,7 @@
-import { currentProfile, db } from '@/shared/api-helpers';
+import { currentProfile } from '@/entities/profile';
 import { redirectToSignIn } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
+import { getServer } from '@/entities/server';
 
 interface props {
     params: {
@@ -15,23 +16,7 @@ export const ServerIdPage = async ({ params }: props) => {
         return redirectToSignIn();
     }
 
-    const server = await db.server.findUnique({
-        where: {
-            id: params.serverId,
-            members: {
-                some: {
-                    profileId: profile.id,
-                },
-            },
-        },
-        include: {
-            channels: {
-                where: {
-                    name: 'general',
-                },
-            },
-        },
-    });
+    const { server } = await getServer({ serverId: params.serverId, profileId: profile.id });
 
     const generalChannel = server?.channels[0];
 

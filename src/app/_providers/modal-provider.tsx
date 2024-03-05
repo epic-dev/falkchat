@@ -1,41 +1,50 @@
 'use client';
 
 import { InitialModal } from '@/pages/setup/ui/initial-modal';
-import { CreateChannelModal, DeleteChannelModal } from '@/widgets/channel';
-import { MessageAttachmentModal } from '@/widgets/chat';
 import {
-    DeleteMessageModal,
-    InviteModal,
-    LeaveServerModal,
-    ManageUsersModal,
-} from '@/widgets/modals';
-import { CreateServerModal, DeleteServerModal, EditServerModal } from '@/widgets/server';
+  CreateChannelModal,
+  DeleteChannelModal,
+} from '@/features/update-channel';
+import {
+  CreateServerModal,
+  DeleteServerModal,
+  EditServerModal,
+} from '@/features/update-server';
 import { useEffect, useState } from 'react';
+import {
+  InviteModal,
+  LeaveServerModal,
+  ManageUsersModal,
+} from '@/features/update-members';
+import {
+  DeleteMessageModal,
+  MessageAttachmentModal,
+} from '@/features/update-message';
 
 export const ModalProvider = () => {
-    const [isMounted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-    if (!isMounted) {
-        return null;
-    }
+  if (!isMounted) {
+    return null;
+  }
 
-    return (
-        <>
-            <InviteModal />
-            <InitialModal />
-            <EditServerModal />
-            <CreateServerModal />
-            <CreateChannelModal />
-            <DeleteChannelModal />
-            <DeleteServerModal />
-            <ManageUsersModal />
-            <LeaveServerModal />
-            <DeleteMessageModal />
-            <MessageAttachmentModal />
-        </>
-    );
+  return (
+    <>
+      <InviteModal />
+      <InitialModal />
+      <EditServerModal />
+      <CreateServerModal />
+      <CreateChannelModal />
+      <DeleteChannelModal />
+      <DeleteServerModal />
+      <ManageUsersModal />
+      <LeaveServerModal />
+      <DeleteMessageModal />
+      <MessageAttachmentModal />
+    </>
+  );
 };

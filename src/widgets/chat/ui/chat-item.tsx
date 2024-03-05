@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/shared/tailwind-merge';
+import { cn } from '@/shared/lib/tailwind-merge';
 import { ActionTooltip } from '@/shared/ui/action-tooltip';
 import { Avatar, AvatarImage } from '@/shared/ui/avatar';
 import { Skeleton } from '@/shared/ui/skeleton';
@@ -14,8 +14,8 @@ import qs from 'query-string';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { conditions } from '../lib/conditions';
-import { MessageEditForm } from './message-edit-form';
+import { conditions } from '../lib/use-contidions';
+import { MessageEditForm } from '@/features/update-message';
 import { MessageOptions } from './message-options';
 
 interface props {
