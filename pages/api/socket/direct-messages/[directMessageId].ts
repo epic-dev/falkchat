@@ -1,7 +1,8 @@
-import { db, pagesCurrentProfile } from '@/shared/api';
-import { NextApiResponseServerIO } from '../types';
+import { pagesCurrentProfile } from '@/entities/profile';
+import { db } from '@/shared/api';
 import { MemberRole } from '@prisma/client';
 import { NextApiRequest } from 'next';
+import { NextApiResponseServerIO } from '../types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponseServerIO) {
     if (req.method !== 'DELETE' && req.method !== 'PATCH') {
