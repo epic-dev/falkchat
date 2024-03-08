@@ -6,45 +6,48 @@ import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 
 interface props {
-    id: string;
-    imageUrl: string;
-    name: string;
+  id: string;
+  imageUrl: string;
+  name: string;
 }
 
 export const SidebarItem = ({ id, name, imageUrl }: props) => {
-    const params = useParams();
-    const router = useRouter();
+  const params = useParams();
+  const router = useRouter();
 
-    const onClick = () => {
-        router.push(`/servers/${id}`);
-    };
+  const onClick = () => {
+    router.push(`/servers/${id}`);
+  };
 
-    return (
-        <ActionTooltip side="right" align="center" label={name}>
-            <button onClick={onClick} className="group relative flex items-center outline-none">
-                <div
-                    className={cn(
-                        'absolute left-0 bg-primary rounder-r-full transition-all w-[4px] rounded-r-md',
-                        params?.serverId !== id && 'group-hover:h-[20px]',
-                        params?.serverId === id ? 'h-[34px]' : 'h-[8px]',
-                    )}
-                />
-                <div
-                    className={cn(
-                        'relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden',
-                        params?.server === id && 'bg-primary/10 text-primary rounded-[16px]',
-                    )}>
-                    <Image
-                        fill
-                        src={imageUrl}
-                        placeholder="blur"
-                        alt="Channel"
-                        blurDataURL={imageUrl}
-                        sizes="48px"
-                        priority
-                    />
-                </div>
-            </button>
-        </ActionTooltip>
-    );
+  return (
+    <ActionTooltip side="right" align="center" label={name}>
+      <button
+        onClick={onClick}
+        className="group relative flex items-center outline-none">
+        <div
+          className={cn(
+            'rounder-r-full absolute left-0 w-[4px] rounded-r-md bg-primary transition-all',
+            params?.serverId !== id && 'group-hover:h-[20px]',
+            params?.serverId === id ? 'h-[34px]' : 'h-[8px]',
+          )}
+        />
+        <div
+          className={cn(
+            'group relative mx-3 flex h-[48px] w-[48px] overflow-hidden rounded-[24px] transition-all group-hover:rounded-[16px]',
+            params?.server === id &&
+              'rounded-[16px] bg-primary/10 text-primary',
+          )}>
+          <Image
+            fill
+            src={imageUrl}
+            placeholder="blur"
+            alt="Channel"
+            blurDataURL={imageUrl}
+            sizes="48px"
+            priority
+          />
+        </div>
+      </button>
+    </ActionTooltip>
+  );
 };

@@ -1,6 +1,6 @@
 import { SetupPage } from '@/pages/setup';
 
 const Page = async ({}) => {
-    return <SetupPage />;
+  return <SetupPage />;
 };
 export default Page;
