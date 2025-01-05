@@ -8,8 +8,8 @@ Install PostgresDB. Start postgres cli by `psql`
 
 Run `\i ~/Projects/falchat/falkchat/prisma/migrations/20250104175520_init/migration.sql` to setup tables
 
- Then seed the database with the following:
-    server name `<any name>` and image `/photo-1.jpeg
+Then seed the database with the following:
+    server name `<any name>` and image `/photo-1.jpeg`
     channel name is `general`
     member role is `ADMIN`
 
