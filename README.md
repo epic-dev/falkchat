@@ -2,6 +2,17 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Create an account in Clerk, setup new app configuration and copy API key to the `.env.local` file.
+
+Install PostgresDB. Start postgres cli by `psql`
+
+Run `\i ~/Projects/falchat/falkchat/prisma/migrations/20250104175520_init/migration.sql` to setup tables
+
+ Then seed the database with the following:
+    server name `<any name>` and image `/photo-1.jpeg
+    channel name is `general`
+    member role is `ADMIN`
+
 First, run the development server:
 
 ```bash

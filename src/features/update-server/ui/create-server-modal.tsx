@@ -30,9 +30,7 @@ const formSchema = z.object({
   name: z.string().min(1, {
     message: 'Name is required.',
   }),
-  imageUrl: z.string().min(1, {
-    message: 'Image is required.',
-  }),
+  imageUrl: z.string().optional(),
 });
 
 export const CreateServerModal = ({}) => {
